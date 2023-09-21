@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
 
-
 function App({navigation})  {
     return (
         <View style={styles.container}>

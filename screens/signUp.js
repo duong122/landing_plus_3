@@ -1,31 +1,77 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
 
 function App({navigation})  {
+
+    const [fullname, setFullname] = useState('');
+    const [PhoneNumber, setPhoneNumber] = useState('');
+    const [EmailAddress, setEmailAddress] = useState('');
+    const [Password, setPassword] = useState('');
+
+    const handleFullNameChange = (text) => {
+        setFullname(text);
+    };
+
+    const handlePhoneNumber = (text) =>{
+        setPhoneNumber(text);
+    };
+
+    const handleEmailAddress = (text) =>{
+        setEmailAddress(text);
+    };
+
+    const handlePassword = (text) => {
+        setPassword(text);
+    };
+
+    
+
+    const storeData = async () => {
+        console.log("Calling storeData");
+        const UserInfo = {
+            fullName: fullname,
+            phoneNumber: PhoneNumber,
+            emailAddress: EmailAddress,
+            passWord: Password,
+        };
+
+        console.log("User data: ", UserInfo);
+
+        try{
+            const jsonvalue = JSON.stringify(UserInfo)
+            await AsyncStorage.setItem('user', jsonvalue);
+        }
+        catch(e){
+            console.log("Error: ", e);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.textSignIn}>Create new account</Text>
 
             <View style={styles.input}>
                 <View style={styles.userName} >
-                    <TextInput style={styles.dataUser} value={Text} placeholder='Full name' />
+                    <TextInput style={styles.dataUser} onChangeText={handleFullNameChange} placeholder='Full name' />
                 </View>
 
                 <View style={styles.userName}>
-                    <TextInput style={styles.dataUser} value={Text} placeholder='Phone number' />
+                    <TextInput style={styles.dataUser} onChangeText={handlePhoneNumber} placeholder='Phone number' />
                 </View>
 
                 <View style={styles.userName}>
-                    <TextInput style={styles.dataUser} value={Text} placeholder='Email address' />
+                    <TextInput style={styles.dataUser} onChangeText={handleEmailAddress} placeholder='Email address' />
                 </View>
 
                 <View style={styles.userName}>
-                    <TextInput style={styles.dataUser} value={Text} placeholder='Password' />
+                    <TextInput style={styles.dataUser} onChangeText={handlePassword} placeholder='Password' />
                 </View>
             </View>
 
             <View style={styles.optionButtons}>
-                <TouchableOpacity style={styles.btnLogin}>
+                <TouchableOpacity style={styles.btnLogin} onPress={storeData}>
                     <Text style={styles.textLogin}> Sign up </Text>
                 </TouchableOpacity>
             </View>
@@ -68,7 +114,7 @@ const styles=StyleSheet.create({
         width: 278,
         paddingVertical: 8,
         backgroundColor: '#344D91',
-        marginVertical: 32,
+        marginVertical: 24,
         borderRadius: 25,
     },
     textLogin: {

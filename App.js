@@ -5,8 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import landingPage from './screens/landingPage'
 import login from './screens/login'
 import signUp from './screens/signUp'
+import LoginSuccess from './screens/LoginSuccess'
 
 const Stack = createNativeStackNavigator();
+
+
 
 export default function App() {
   return (
@@ -25,6 +28,11 @@ export default function App() {
             headerShadowVisible: false,
           }} />
           <Stack.Screen name='signUp' component={signUp} options={{
+            title: '',
+            headerShadowVisible: false,
+          }} />
+
+        <Stack.Screen name='LoginSuccess' component={LoginSuccess} options={{
             title: '',
             headerShadowVisible: false,
           }} />
